@@ -27,6 +27,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.json.org/json2.js"></script>
 
 </head>
 
@@ -129,6 +131,38 @@
                     </h3>
                 </div>
                 <div class="clearfix"></div>
+
+                <!--부트스트랩 버튼 테스트-->
+                <button id="test_button" type="button" class="btn btn-light">예제 버튼</button>
+                <script>
+                    $("#test_button").click(function() {
+                        alert("으아아ㅏ아아");
+                    });
+                </script>
+
+                <!--서버 통신 테스트-->
+                <form action="http://ec2-54-244-72-128.us-west-2.compute.amazonaws.com:5000/test" method="post" name="chanjoo">
+                    <p>테스트 : <input type="text" name="test"></p>
+                    <input id="send_btn" type="submit" value="정보 넘기기">
+                </form>
+                <script type="text/javascript">
+                    $("#send_btn").click(function() {
+                        var frm = $(document.chanjoo);
+                        var dat = JSON.stringify(frm.serializeArray());
+
+                        alert("I am about to POST this:\n\n" + dat);
+
+                        $.post(
+                            frm.attr("action"),
+                            dat,
+                            function(data) {
+                                alert("Response: " + data);
+                            }
+                        );
+                    });
+                </script>
+
+
             </div>
         </div>
 
